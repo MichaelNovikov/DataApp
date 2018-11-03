@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DataApp"
+             x:Class="DataApp.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Button x:Name="btnAdd" 
+                HorizontalOptions="End"
+                Text="Add New Contact" 
+                BackgroundColor="Orange"
+                BorderRadius="20"
+                HeightRequest="35"
+                Command="{Binding AddContactCommand}"/>
+        <ListView ItemsSource="{Binding Contacts}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding FirstName}"
+                                       TextColor="Black"/>
+                                <Label Text="{Binding LastName}"
+                                       TextColor="Black"/>
+                            </StackLayout>
+                            <Label BindingContext ="{Binding PhoneNumber}"
+                                   Text="{Binding Number}"
+                                   TextColor="Black">
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+    </StackLayout>
+
+</ContentPage>

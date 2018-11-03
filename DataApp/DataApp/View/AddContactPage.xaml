@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DataApp.View.AddContactPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Entry x:Name="entry"
+                   Text="{Binding FirstName, Mode=OneWayToSource}"
+                   Margin="0,100,0,0"
+                   WidthRequest="250"
+                   Placeholder="Firstname"
+                   HorizontalOptions="Center"/>
+            <Entry x:Name="entry2"
+                   Text="{Binding LastName, Mode=OneWayToSource}"
+                   Margin="10"
+                   WidthRequest="250"
+                   Placeholder="Lastname"
+                   HorizontalOptions="Center"/>
+            <Entry WidthRequest="250"
+                   Text="{Binding Number, Mode=OneWayToSource}"
+                   Placeholder="Number"
+                   HorizontalOptions="Center"/>
+            <Button x:Name="btnSaveNewOne" 
+                    Command="{Binding SaveContactCommand}"
+                    HorizontalOptions="Center"
+                    Text="Save New Contact" 
+                    Margin="30"
+                    BackgroundColor="Orange"
+                    BorderRadius="20"
+                    HeightRequest="35"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
