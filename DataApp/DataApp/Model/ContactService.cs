@@ -1,4 +1,6 @@
-﻿using DataApp.DTO;
+﻿using DataApp.DataController;
+using DataApp.DTO;
+using Realms;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,30 +9,31 @@ namespace DataApp.Model
 {
     class ContactService
     {
-        public  List<Contact> _list;
+        private RealmImplementation<Contact> _realmInst;
 
         public ContactService()
         {
-            _list = new List<Contact>();
-            ListInit();
+            _realmInst = new RealmImplementation<Contact>();
         }
 
-        private void ListInit()
+        public IEnumerable<Contact> GetCollection()
         {
-            for (int i = 0; i < 15; i++)
-            {
-                _list.Add(new Contact
-                {
-                    FirstName = "Ivan",
-                    LastName = "Ivanov",
-                    PhoneNumber = new Phone { Number = "+38 073 36 73 478" }
-                });
-            }
+            return _realmInst.Read();
         }
 
-        //public List<Contact> ContactList
-        //{
-        //    get { return _list; }
-        //}
+        public void AddContact(Contact contact)
+        {
+            _realmInst.Create(contact);
+        }
+
+        public void DeleteContact(string id)
+        {
+            _realmInst.Delete(id);
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            _realmInst.Update(contact);
+        }
     }
 }

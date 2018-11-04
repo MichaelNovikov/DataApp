@@ -21,10 +21,9 @@
                    Placeholder="Number"
                    HorizontalOptions="Center"/>
             <Button x:Name="btnSaveNewOne" 
-                    Command="{Binding SaveContactCommand}"
+                    Command="{Binding SaveNewContactCommand}"
                     HorizontalOptions="Center"
                     Text="Save New Contact" 
-                    Margin="30"
                     BackgroundColor="Orange"
                     BorderRadius="20"
                     HeightRequest="35"/>

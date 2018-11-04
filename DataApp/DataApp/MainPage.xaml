@@ -13,7 +13,7 @@
                 BorderRadius="20"
                 HeightRequest="35"
                 Command="{Binding AddContactCommand}"/>
-        <ListView ItemsSource="{Binding Contacts}">
+        <ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -33,7 +33,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
 
     </StackLayout>
 
