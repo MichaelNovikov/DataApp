@@ -1,4 +1,5 @@
-﻿using DataApp.DTO;
+﻿using DataApp.DataController;
+using DataApp.DTO;
 using DataApp.Model;
 using DataApp.View;
 using System;
@@ -15,13 +16,13 @@ namespace DataApp.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ContactService ContactService { get; set; }
-        public IQueryable<Contact> Contacts { get; set; }
+        private ContactService<RealmContact> ContactService { get; set; }
+        public IQueryable<IContact> Contacts { get; set; }
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Number { get; set; }
-        public Contact selectedItem;
+        public IContact selectedItem;
 
 
         public INavigation Navigation { get; set; }
@@ -32,15 +33,16 @@ namespace DataApp.ViewModel
 
         public ContactViewModel()
         {
-            ContactService = new ContactService();
-            Contacts = ContactService.GetCollection() as IQueryable<Contact>;
+            // ContactService = new ContactService<Contact>(new RealmImplementation<Contact>());
+            ContactService = new ContactService<RealmContact>();
+            Contacts = ContactService.GetCollection() as IQueryable<IContact>;
             AddContactCommand = new Command(AddContact);
             SaveNewContactCommand = new Command(SaveNewContact);
             DeleteContactCommand = new Command(DeleteContact);
             UpdateContactCommand = new Command(UpdateContact);
         }
 
-        public Contact SelectedItem
+        public IContact SelectedItem
         {
             get { return selectedItem; }
             set
@@ -68,14 +70,14 @@ namespace DataApp.ViewModel
         {
             if (!((FirstName == null) && (LastName == null) && (Number == null)))
             {
-                ContactService.AddContact(new Contact
+                ContactService.AddContact(new RealmContact
                 {
                     FirstName = this.FirstName,
                     LastName = this.LastName,
                     PhoneNumber = new Phone { Number = this.Number }
                 });
 
-                Contacts = ContactService.GetCollection() as IQueryable<Contact>;
+                Contacts = ContactService.GetCollection() as IQueryable<RealmContact>;
                 OnPropertyChanged("Contacts");
             }
             Navigation.PopAsync();
@@ -83,7 +85,7 @@ namespace DataApp.ViewModel
 
         private void UpdateContact()
         {
-            var contact = new Contact
+            var contact = new RealmContact
             {
                 Id = this.Id,
                 FirstName = this.FirstName,
@@ -92,7 +94,7 @@ namespace DataApp.ViewModel
             };
             ContactService.UpdateContact(contact);
 
-            Contacts = ContactService.GetCollection() as IQueryable<Contact>;
+            Contacts = ContactService.GetCollection() as IQueryable<RealmContact>;
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }
@@ -101,7 +103,7 @@ namespace DataApp.ViewModel
         {
             ContactService.DeleteContact(Id);
 
-            Contacts = ContactService.GetCollection() as IQueryable<Contact>;
+            Contacts = ContactService.GetCollection() as IQueryable<RealmContact>;
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }

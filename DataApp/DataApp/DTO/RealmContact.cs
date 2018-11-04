@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataApp.DTO
 {
-    public class Contact : RealmObject
+    public class RealmContact : RealmObject, IContact
     {
         [PrimaryKey]
         public string Id { get; set; } = Guid.NewGuid().ToString();
