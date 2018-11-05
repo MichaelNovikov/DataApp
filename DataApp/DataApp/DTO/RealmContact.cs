@@ -13,6 +13,4 @@ namespace DataApp.DTO
         public string LastName { get; set; }
         public Phone PhoneNumber { get; set; }
     }
-
-
 }

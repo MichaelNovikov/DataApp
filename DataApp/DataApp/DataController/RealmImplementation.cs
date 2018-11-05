@@ -1,13 +1,10 @@
 ﻿using DataApp.DTO;
 using Realms;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DataApp.DataController
 {
-    class RealmImplementation<T> : IDataBase where T: RealmObject
+    class RealmImplementation : IDataBase
     {
         private Realm _instance;
 
@@ -21,7 +18,7 @@ namespace DataApp.DataController
         {
             _instance.Write(() =>
             {
-                _instance.Add(obj as T);
+                _instance.Add(obj as RealmContact);
             });
         }
 
@@ -29,20 +26,20 @@ namespace DataApp.DataController
         {
             _instance.Write(() =>
             {
-                _instance.Remove(_instance.Find<T>(id));
+                _instance.Remove(_instance.Find<RealmContact>(id));
             });
         }
 
         public IEnumerable<IContact> Read()
         {
-            return _instance.All<T>() as IEnumerable<IContact>;
+            return _instance.All<RealmContact>() as IEnumerable<IContact>;
         }
 
         public void Update(IContact source)
         {
             _instance.Write(() =>
             {
-                _instance.Add(source as T, true);
+                _instance.Add(source as RealmContact, true);
             });
         }
     }

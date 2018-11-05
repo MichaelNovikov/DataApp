@@ -2,11 +2,8 @@
 using DataApp.DTO;
 using DataApp.Model;
 using DataApp.View;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -32,8 +29,8 @@ namespace DataApp.ViewModel
 
         public ContactViewModel()
         {
-         // ContactService = new ContactService<IContact>(new SQLiteImplementation<SQLiteContact>());
-            ContactService = new ContactService<RealmContact>(new RealmImplementation<RealmContact>());
+         // ContactService = new ContactService<IContact>(new SQLiteImplementation());
+            ContactService = new ContactService<RealmContact>(new RealmImplementation());
             Contacts = ContactService.GetCollection() as IQueryable<IContact>;
             AddContactCommand = new Command(AddContact);
             SaveNewContactCommand = new Command(SaveNewContact);
@@ -73,7 +70,7 @@ namespace DataApp.ViewModel
                 {
                     FirstName = this.FirstName,
                     LastName = this.LastName,
-                    PhoneNumber = new Phone { Number = this.Number }
+                    PhoneNumber = new ViewPhone { Number = this.Number }
                 });
 
                 Contacts = ContactService.GetCollection() as IQueryable<IContact>;
@@ -89,7 +86,7 @@ namespace DataApp.ViewModel
                 Id = this.Id,
                 FirstName = this.FirstName,
                 LastName = this.LastName,
-                PhoneNumber = new Phone { Number = this.Number }
+                PhoneNumber = new ViewPhone { Number = this.Number }
             };
             ContactService.UpdateContact(contact);
 

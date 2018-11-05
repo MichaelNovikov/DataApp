@@ -1,9 +1,6 @@
 ﻿using DataApp.DataController;
 using DataApp.DTO;
-using Realms;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataApp.Model
 {
@@ -11,21 +8,21 @@ namespace DataApp.Model
     {
         IDataBase _dataBase;
 
-        private ModelAdapter<T> adapter = new ModelAdapter<T>(); 
+        private ModelAdapter<T> adapter = new ModelAdapter<T>();
 
         public ContactService(IDataBase dataBase)
         {
             _dataBase = dataBase;
         }
 
-        public IEnumerable<T> GetCollection()
+        public IEnumerable<IContact> GetCollection()
         {
-            return _dataBase.Read() as IEnumerable<T>;
+            return _dataBase.Read() as IEnumerable<IContact>;
         }
 
-        public void AddContact(IContact contact)
+        public void AddContact(ViewContact contact)
         {
-            T realContact = adapter.ModelConvert(contact);
+            IContact realContact = adapter.ModelConvert(contact);
             _dataBase.Create(realContact);
         }
 
@@ -34,9 +31,9 @@ namespace DataApp.Model
             _dataBase.Delete(id);
         }
 
-        public void UpdateContact(IContact contact)
+        public void UpdateContact(ViewContact contact)
         {
-            T realContact = adapter.ModelConvert(contact);
+            IContact realContact = adapter.ModelConvert(contact);
             _dataBase.Update(realContact);
         }
     }

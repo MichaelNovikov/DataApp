@@ -5,11 +5,11 @@ using System.Text;
 
 namespace DataApp.Model
 {
-    class ViewContact : IContact
+    class ViewContact
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Phone PhoneNumber { get; set; }
+        public ViewPhone PhoneNumber { get; set; }
     }
 }

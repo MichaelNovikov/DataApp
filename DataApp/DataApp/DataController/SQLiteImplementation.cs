@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace DataApp.DataController
 {
-    class SQLiteImplementation<T> : IDataBase where T: class, new()
+    class SQLiteImplementation : IDataBase
     {
         SQLiteConnection _database;
 
@@ -15,27 +15,27 @@ namespace DataApp.DataController
         {
             string databasePath = DependencyService.Get<ISQLite>().GetDatabasePath("SQLiteContacts.db");
             _database = new SQLiteConnection(databasePath);
-            _database.CreateTable<T>();
+            _database.CreateTable<SQLiteContact>();
         }
 
         public void Create(IContact obj)
         {
-            _database.Insert(obj as T);
+            _database.Insert(obj as SQLiteContact);
         }
 
         public void Delete(string id)
         {
-            _database.Delete<T>(id);
+            _database.Delete<SQLiteContact>(id);
         }
 
         public IEnumerable<IContact> Read()
         {
-            return _database.Table<T>() as IEnumerable<IContact>;
+            return _database.Table<SQLiteContact>() as IEnumerable<IContact>;
         }
 
         public void Update(IContact source)
         {
-            _database.Update(source as T);
+            _database.Update(source as SQLiteContact);
         }
     }
 }

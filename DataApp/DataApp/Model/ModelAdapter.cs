@@ -4,14 +4,14 @@ namespace DataApp.Model
 {
     class ModelAdapter<T> where T : IContact, new()
     {
-        public T ModelConvert(IContact model)
+        public T ModelConvert(ViewContact model)
         {
             return new T()
             {
                 Id = model.Id,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = new Phone() { Number = model.PhoneNumber.Number}
             };
         }
     }
