@@ -2,7 +2,7 @@
 
 namespace DataApp.DTO
 {
-    public class Phone : RealmObject
+    public class Phone : RealmObject, IPhone
     {
         public string Number { get; set; }
     }

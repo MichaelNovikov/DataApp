@@ -8,8 +8,8 @@ namespace DataApp.DTO
     [Table("SQLiteContacts")]
     class SQLiteContact : IContact
     {
-        [PrimaryKey, AutoIncrement]
-        public string Id { get ; set ; }
+        [PrimaryKey]
+        public string Id { get ; set ; } = Guid.NewGuid().ToString();
         public string FirstName { get ; set ; }
         public string LastName { get ; set ; }
         public Phone PhoneNumber { get ; set ; }

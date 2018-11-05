@@ -7,9 +7,11 @@ using System.Text;
 
 namespace DataApp.Model
 {
-    class ContactService<T> 
+    class ContactService<T> where T : IContact, new()
     {
         IDataBase _dataBase;
+
+        private ModelAdapter<T> adapter = new ModelAdapter<T>(); 
 
         public ContactService(IDataBase dataBase)
         {
@@ -23,7 +25,8 @@ namespace DataApp.Model
 
         public void AddContact(IContact contact)
         {
-            _dataBase.Create(contact);
+            T realContact = adapter.ModelConvert(contact);
+            _dataBase.Create(realContact);
         }
 
         public void DeleteContact(string id)
@@ -33,7 +36,8 @@ namespace DataApp.Model
 
         public void UpdateContact(IContact contact)
         {
-            _dataBase.Update(contact);
+            T realContact = adapter.ModelConvert(contact);
+            _dataBase.Update(realContact);
         }
     }
 }

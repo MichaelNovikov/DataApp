@@ -18,12 +18,11 @@ namespace DataApp.ViewModel
 
         private ContactService<RealmContact> ContactService { get; set; }
         public IQueryable<IContact> Contacts { get; set; }
+        public IContact selectedItem;
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Number { get; set; }
-        public IContact selectedItem;
-
 
         public INavigation Navigation { get; set; }
         public ICommand AddContactCommand { protected set; get; }
@@ -33,6 +32,7 @@ namespace DataApp.ViewModel
 
         public ContactViewModel()
         {
+         // ContactService = new ContactService<IContact>(new SQLiteImplementation<SQLiteContact>());
             ContactService = new ContactService<RealmContact>(new RealmImplementation<RealmContact>());
             Contacts = ContactService.GetCollection() as IQueryable<IContact>;
             AddContactCommand = new Command(AddContact);
@@ -69,7 +69,7 @@ namespace DataApp.ViewModel
         {
             if (!((FirstName == null) && (LastName == null) && (Number == null)))
             {
-                ContactService.AddContact(new RealmContact
+                ContactService.AddContact(new ViewContact
                 {
                     FirstName = this.FirstName,
                     LastName = this.LastName,
@@ -84,7 +84,7 @@ namespace DataApp.ViewModel
 
         private void UpdateContact()
         {
-            var contact = new RealmContact
+            var contact = new ViewContact
             {
                 Id = this.Id,
                 FirstName = this.FirstName,
