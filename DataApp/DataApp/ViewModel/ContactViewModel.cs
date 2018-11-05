@@ -33,8 +33,7 @@ namespace DataApp.ViewModel
 
         public ContactViewModel()
         {
-            // ContactService = new ContactService<Contact>(new RealmImplementation<Contact>());
-            ContactService = new ContactService<RealmContact>();
+            ContactService = new ContactService<RealmContact>(new RealmImplementation<RealmContact>());
             Contacts = ContactService.GetCollection() as IQueryable<IContact>;
             AddContactCommand = new Command(AddContact);
             SaveNewContactCommand = new Command(SaveNewContact);
@@ -77,7 +76,7 @@ namespace DataApp.ViewModel
                     PhoneNumber = new Phone { Number = this.Number }
                 });
 
-                Contacts = ContactService.GetCollection() as IQueryable<RealmContact>;
+                Contacts = ContactService.GetCollection() as IQueryable<IContact>;
                 OnPropertyChanged("Contacts");
             }
             Navigation.PopAsync();
@@ -94,7 +93,7 @@ namespace DataApp.ViewModel
             };
             ContactService.UpdateContact(contact);
 
-            Contacts = ContactService.GetCollection() as IQueryable<RealmContact>;
+            Contacts = ContactService.GetCollection() as IQueryable<IContact>;
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }
@@ -103,7 +102,7 @@ namespace DataApp.ViewModel
         {
             ContactService.DeleteContact(Id);
 
-            Contacts = ContactService.GetCollection() as IQueryable<RealmContact>;
+            Contacts = ContactService.GetCollection() as IQueryable<IContact>;
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }

@@ -33,11 +33,6 @@ namespace DataApp.DataController
             });
         }
 
-        public IEnumerable<T> Read(Func<T, bool> predicate)
-        {
-            return _instance.All<T>().Where(predicate);
-        }
-
         public IEnumerable<T> Read()
         {
             return _instance.All<T>();

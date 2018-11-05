@@ -1,5 +1,4 @@
-﻿using DataApp.DAL;
-using DataApp.DataController;
+﻿using DataApp.DataController;
 using DataApp.DTO;
 using Realms;
 using System;
@@ -8,33 +7,33 @@ using System.Text;
 
 namespace DataApp.Model
 {
-    class ContactService<T> where T : RealmObject, IContact
+    class ContactService<T> where T : RealmContact
     {
-        DbDal<T> _dbDal;
+        IDataBase<T> _dataBase;
 
-        public ContactService()
+        public ContactService(IDataBase<T> dataBase)
         {
-            _dbDal = new DbDal<T>(new RealmImplementation<T>());
+            _dataBase = dataBase;
         }
 
         public IEnumerable<T> GetCollection()
         {
-            return _dbDal.GetCollection();
+            return _dataBase.Read() as IEnumerable<T>;
         }
 
         public void AddContact(T contact)
         {
-            _dbDal.AddContact(contact);
+            _dataBase.Create(contact);
         }
 
         public void DeleteContact(string id)
         {
-            _dbDal.DeleteContact(id);
+            _dataBase.Delete(id);
         }
 
         public void UpdateContact(T contact)
         {
-            _dbDal.UpdateContact(contact);
+            _dataBase.Update(contact);
         }
     }
 }
