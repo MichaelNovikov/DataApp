@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using DataApp.DTO;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using Xamarin.Forms;
 
 namespace DataApp.DataController
 {
-    class SQLiteImplementation<T> : IDataBase<T> where T: new()
+    class SQLiteImplementation<T> : IDataBase where T: class, new()
     {
         SQLiteConnection _database;
 
@@ -17,9 +18,9 @@ namespace DataApp.DataController
             _database.CreateTable<T>();
         }
 
-        public void Create(T obj)
+        public void Create(IContact obj)
         {
-            _database.Insert(obj);
+            _database.Insert(obj as T);
         }
 
         public void Delete(string id)
@@ -27,14 +28,14 @@ namespace DataApp.DataController
             _database.Delete<T>(id);
         }
 
-        public IEnumerable<T> Read()
+        public IEnumerable<IContact> Read()
         {
-            return _database.Table<T>();
+            return _database.Table<T>() as IEnumerable<IContact>;
         }
 
-        public void Update(T source)
+        public void Update(IContact source)
         {
-            _database.Update(source);
+            _database.Update(source as T);
         }
     }
 }

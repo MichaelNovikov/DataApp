@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataApp.DataController
 {
-    class RealmImplementation<T> : IDataBase<T> where T: RealmObject
+    class RealmImplementation<T> : IDataBase where T: RealmObject
     {
         private Realm _instance;
 
@@ -17,11 +17,11 @@ namespace DataApp.DataController
             _instance = Realm.GetInstance(config);
         }
 
-        public void Create(T obj)
+        public void Create(IContact obj)
         {
             _instance.Write(() =>
             {
-                _instance.Add(obj);
+                _instance.Add(obj as T);
             });
         }
 
@@ -33,16 +33,16 @@ namespace DataApp.DataController
             });
         }
 
-        public IEnumerable<T> Read()
+        public IEnumerable<IContact> Read()
         {
-            return _instance.All<T>();
+            return _instance.All<T>() as IEnumerable<IContact>;
         }
 
-        public void Update(T source)
+        public void Update(IContact source)
         {
             _instance.Write(() =>
             {
-                _instance.Add(source, true);
+                _instance.Add(source as T, true);
             });
         }
     }

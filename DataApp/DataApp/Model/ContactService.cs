@@ -7,11 +7,11 @@ using System.Text;
 
 namespace DataApp.Model
 {
-    class ContactService<T> where T : RealmContact
+    class ContactService<T> 
     {
-        IDataBase<T> _dataBase;
+        IDataBase _dataBase;
 
-        public ContactService(IDataBase<T> dataBase)
+        public ContactService(IDataBase dataBase)
         {
             _dataBase = dataBase;
         }
@@ -21,7 +21,7 @@ namespace DataApp.Model
             return _dataBase.Read() as IEnumerable<T>;
         }
 
-        public void AddContact(T contact)
+        public void AddContact(IContact contact)
         {
             _dataBase.Create(contact);
         }
@@ -31,7 +31,7 @@ namespace DataApp.Model
             _dataBase.Delete(id);
         }
 
-        public void UpdateContact(T contact)
+        public void UpdateContact(IContact contact)
         {
             _dataBase.Update(contact);
         }

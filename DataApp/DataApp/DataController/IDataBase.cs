@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DataApp.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DataApp.DataController
 {
-    public interface IDataBase<T>
+    public interface IDataBase
     {
-        void Create(T obj);
-        IEnumerable<T> Read();
-        void Update(T source);
+        void Create(IContact obj);
+        IEnumerable<IContact> Read();
+        void Update(IContact source);
         void Delete(string id);
     }
 }
