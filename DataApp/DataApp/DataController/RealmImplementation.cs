@@ -1,6 +1,7 @@
 ﻿using DataApp.DTO;
 using Realms;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataApp.DataController
 {
@@ -30,9 +31,14 @@ namespace DataApp.DataController
             });
         }
 
-        public IEnumerable<IContact> Read()
+        public IEnumerable<IContact> ReadAll()
         {
             return _instance.All<RealmContact>() as IEnumerable<IContact>;
+        }
+
+        public IEnumerable<IContact> ReadAllByName(string name)
+        {
+            return _instance.All<RealmContact>().Where(c => c.FirstName == name);
         }
 
         public void Update(IContact source)

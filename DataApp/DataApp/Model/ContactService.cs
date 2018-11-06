@@ -17,11 +17,15 @@ namespace DataApp.Model
 
         public IEnumerable<ViewContact> GetCollection()
         {
-            var viewContacts = adapter.ToViewContacListConvert(_dataBase.Read());
-            return viewContacts;
+            return adapter.ToViewContacListConvert(_dataBase.ReadAll());
         }
 
-        public void AddContact(ViewContact contact)
+        public IEnumerable<ViewContact> GetCollectionByName(string name)
+        {
+            return adapter.ToViewContacListConvert(_dataBase.ReadAllByName(name));
+        }
+
+            public void AddContact(ViewContact contact)
         {
             IContact realContact = adapter.ModelConvert(contact);
             _dataBase.Create(realContact);

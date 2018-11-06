@@ -6,13 +6,36 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-        <Button x:Name="btnAdd" 
-                HorizontalOptions="End"
-                Text="Add New Contact" 
-                BackgroundColor="Orange"
+        <StackLayout Orientation="Horizontal">
+        <Entry x:Name="entryFind"
+               Placeholder="Find by name"
+               Text="{Binding FindProperty, Mode=TwoWay}"
+               HorizontalOptions="Start"
+               HeightRequest="50"/>
+            <Button x:Name="btnX"
+                HorizontalOptions="Center"
+                Text="X" 
+                IsVisible="False"
+                WidthRequest="50"
+                BorderRadius="25"
+                Command="{Binding ResetSortCommand}"/>
+            <Button x:Name="btnFind"
+                HorizontalOptions="Center"
+                Text="Find" 
+                BackgroundColor="LightBlue"
+                WidthRequest="55"
                 BorderRadius="20"
-                HeightRequest="35"
+                Command="{Binding FindByNameCommand}"/>
+            
+        <Button x:Name="btnAdd" 
+                HorizontalOptions="EndAndExpand"
+                FontSize="Large"
+                Text="+" 
+                WidthRequest="50"
+                BackgroundColor="Orange"
+                BorderRadius="25"
                 Command="{Binding AddContactCommand}"/>
+        </StackLayout>
         <ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>

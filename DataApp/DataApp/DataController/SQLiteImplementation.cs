@@ -20,6 +20,7 @@ namespace DataApp.DataController
 
         public void Create(IContact obj)
         {
+
             _database.Insert(obj as SQLiteContact);
         }
 
@@ -28,9 +29,14 @@ namespace DataApp.DataController
             _database.Delete<SQLiteContact>(id);
         }
 
-        public IEnumerable<IContact> Read()
+        public IEnumerable<IContact> ReadAll()
         {
             return _database.Table<SQLiteContact>() as IEnumerable<IContact>;
+        }
+
+        public IEnumerable<IContact> ReadAllByName(string name)
+        {
+            return _database.Query<SQLiteContact>("SELECT * FROM SQLiteContacts WHERE FirstName = ?", name);
         }
 
         public void Update(IContact source)

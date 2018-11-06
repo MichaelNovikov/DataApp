@@ -8,7 +8,8 @@ namespace DataApp.DataController
     public interface IDataBase
     {
         void Create(IContact obj);
-        IEnumerable<IContact> Read();
+        IEnumerable<IContact> ReadAll();
+        IEnumerable<IContact> ReadAllByName(string name);
         void Update(IContact source);
         void Delete(string id);
     }
