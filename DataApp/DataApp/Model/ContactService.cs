@@ -15,9 +15,10 @@ namespace DataApp.Model
             _dataBase = dataBase;
         }
 
-        public IEnumerable<IContact> GetCollection()
+        public IEnumerable<ViewContact> GetCollection()
         {
-            return _dataBase.Read() as IEnumerable<IContact>;
+            var viewContacts = adapter.ToViewContacListConvert(_dataBase.Read());
+            return viewContacts;
         }
 
         public void AddContact(ViewContact contact)

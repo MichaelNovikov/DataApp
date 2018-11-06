@@ -2,6 +2,7 @@
 using DataApp.DTO;
 using DataApp.Model;
 using DataApp.View;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
@@ -13,13 +14,13 @@ namespace DataApp.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ContactService<RealmContact> ContactService { get; set; }
-        public IQueryable<IContact> Contacts { get; set; }
-        public IContact selectedItem;
+        private ContactService<SQLiteContact> ContactService { get; set; }
+        public IEnumerable<ViewContact> Contacts { get; set; }
+        public ViewContact selectedItem;
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Number { get; set; }
+        public string PhoneNumber { get; set; }
 
         public INavigation Navigation { get; set; }
         public ICommand AddContactCommand { protected set; get; }
@@ -29,16 +30,16 @@ namespace DataApp.ViewModel
 
         public ContactViewModel()
         {
-         // ContactService = new ContactService<IContact>(new SQLiteImplementation());
-            ContactService = new ContactService<RealmContact>(new RealmImplementation());
-            Contacts = ContactService.GetCollection() as IQueryable<IContact>;
+            ContactService = new ContactService<SQLiteContact>(new SQLiteImplementation());
+           // ContactService = new ContactService<RealmContact>(new RealmImplementation());
+            Contacts = ContactService.GetCollection();
             AddContactCommand = new Command(AddContact);
             SaveNewContactCommand = new Command(SaveNewContact);
             DeleteContactCommand = new Command(DeleteContact);
             UpdateContactCommand = new Command(UpdateContact);
         }
 
-        public IContact SelectedItem
+        public ViewContact SelectedItem
         {
             get { return selectedItem; }
             set
@@ -50,7 +51,7 @@ namespace DataApp.ViewModel
                 Id = selectedItem.Id;
                 FirstName = selectedItem.FirstName;
                 LastName = selectedItem.LastName;
-                Number = SelectedItem.PhoneNumber.Number;
+                PhoneNumber = selectedItem.PhoneNumber;
 
                 Navigation.PushAsync(new UpdateDeleteContactPage(this));
                 SelectedItem = null;
@@ -64,16 +65,16 @@ namespace DataApp.ViewModel
 
         private void SaveNewContact()
         {
-            if (!((FirstName == null) && (LastName == null) && (Number == null)))
+            if (!((FirstName == null) && (LastName == null) && (PhoneNumber == null)))
             {
                 ContactService.AddContact(new ViewContact
                 {
                     FirstName = this.FirstName,
                     LastName = this.LastName,
-                    PhoneNumber = new ViewPhone { Number = this.Number }
+                    PhoneNumber = this.PhoneNumber 
                 });
 
-                Contacts = ContactService.GetCollection() as IQueryable<IContact>;
+                Contacts = ContactService.GetCollection();
                 OnPropertyChanged("Contacts");
             }
             Navigation.PopAsync();
@@ -86,11 +87,11 @@ namespace DataApp.ViewModel
                 Id = this.Id,
                 FirstName = this.FirstName,
                 LastName = this.LastName,
-                PhoneNumber = new ViewPhone { Number = this.Number }
+                PhoneNumber = this.PhoneNumber
             };
             ContactService.UpdateContact(contact);
 
-            Contacts = ContactService.GetCollection() as IQueryable<IContact>;
+            Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }
@@ -99,7 +100,7 @@ namespace DataApp.ViewModel
         {
             ContactService.DeleteContact(Id);
 
-            Contacts = ContactService.GetCollection() as IQueryable<IContact>;
+            Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }

@@ -24,8 +24,7 @@
                                 <Label Text="{Binding LastName}"
                                        TextColor="Black"/>
                             </StackLayout>
-                            <Label BindingContext ="{Binding PhoneNumber}"
-                                   Text="{Binding Number}"
+                            <Label Text="{Binding PhoneNumber}"
                                    TextColor="Black">
                             </Label>
                         </StackLayout>

@@ -9,7 +9,7 @@
             <Label Text="LastName" />
             <Entry Text="{Binding LastName, Mode=TwoWay}" />
             <Label Text="Number" />
-            <Entry Text="{Binding Number, Mode=TwoWay}" />
+            <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Save" 
                         Command="{Binding UpdateContactCommand}"

@@ -10,7 +10,7 @@ namespace DataApp.DataController
 
         public RealmImplementation()
         {
-            var config = new RealmConfiguration() { SchemaVersion = 1 };
+            var config = new RealmConfiguration() { SchemaVersion = 2 };
             _instance = Realm.GetInstance(config);
         }
 

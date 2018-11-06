@@ -9,6 +9,6 @@ namespace DataApp.DTO
         string Id { get; set; }
         string FirstName { get; set; }
         string LastName { get; set; }
-        Phone PhoneNumber { get; set; }
+        string PhoneNumber { get; set; }
     }
 }
