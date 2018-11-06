@@ -31,7 +31,7 @@ namespace DataApp.DataController
 
         public IEnumerable<IContact> ReadAll()
         {
-            return _database.Table<SQLiteContact>() as IEnumerable<IContact>;
+            return _database.Table<SQLiteContact>();
         }
 
         public IEnumerable<IContact> ReadAllByName(string name)

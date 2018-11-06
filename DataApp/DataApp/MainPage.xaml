@@ -26,8 +26,7 @@
                 WidthRequest="55"
                 BorderRadius="20"
                 Command="{Binding FindByNameCommand}"/>
-            
-        <Button x:Name="btnAdd" 
+            <Button x:Name="btnAdd" 
                 HorizontalOptions="EndAndExpand"
                 FontSize="Large"
                 Text="+" 
@@ -55,7 +54,24 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <StackLayout Orientation="Horizontal">
+            <Button x:Name="btnRealm"
+                HorizontalOptions="CenterAndExpand"
+                Text="Realm  db"
+                WidthRequest="200"
+                BorderColor="Black"
+                BorderWidth="1"
+                BackgroundColor="LightBlue"
+                Command="{Binding SwichOnRealmDbCommand}"/>
+            <Button x:Name="btnSQLite"
+                HorizontalOptions="CenterAndExpand"
+                Text="SQLite  db" 
+                WidthRequest="200"
+                BorderColor="Black"
+                TextColor="Gray" 
+                BackgroundColor="LightBlue"
+                Command="{Binding SwichOnSQLiteDbCommand}"/>
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>

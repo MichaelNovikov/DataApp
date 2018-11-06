@@ -33,7 +33,7 @@ namespace DataApp.DataController
 
         public IEnumerable<IContact> ReadAll()
         {
-            return _instance.All<RealmContact>() as IEnumerable<IContact>;
+            return _instance.All<RealmContact>();
         }
 
         public IEnumerable<IContact> ReadAllByName(string name)

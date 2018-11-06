@@ -48,9 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FAB.Forms">
-      <Version>2.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Realm">
       <Version>3.2.1</Version>
     </PackageReference>
