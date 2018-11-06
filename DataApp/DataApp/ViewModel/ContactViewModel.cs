@@ -97,8 +97,6 @@ namespace DataApp.ViewModel
                 PhoneNumber = this.PhoneNumber
             };
             ContactService.UpdateContact(contact);
-            MainPage._resetSort.IsVisible = false;
-            MainPage._entryFind.Text = "";
 
             Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
@@ -108,8 +106,6 @@ namespace DataApp.ViewModel
         private void DeleteContact()
         {
             ContactService.DeleteContact(Id);
-            MainPage._resetSort.IsVisible = false;
-            MainPage._entryFind.Text = "";
 
             Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
@@ -118,19 +114,13 @@ namespace DataApp.ViewModel
 
         private void FindByName()
         {
-            MainPage._resetSort.IsVisible = true;
-            MainPage._btnFind.IsVisible = false;
             Contacts = ContactService.GetCollectionByName(FindProperty);
-
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
         }
 
         private void ResetSort()
         {
-            MainPage._resetSort.IsVisible = false;
-            MainPage._btnFind.IsVisible = true;
-            MainPage._entryFind.Text = "";
             Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
             Navigation.PopAsync();
@@ -138,13 +128,6 @@ namespace DataApp.ViewModel
 
         private void SwichOnRealmDb()
         {
-            MainPage._resetSort.IsVisible = false;
-            MainPage._entryFind.Text = "";
-            MainPage._btnRealm.BorderWidth = 2;
-            MainPage._btnSQLite.BorderWidth = 0;
-            MainPage._btnRealm.TextColor = Color.Black;
-            MainPage._btnSQLite.TextColor = Color.Gray;
-
             ContactService = new ContactService<RealmContact>(new RealmImplementation());
             Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
@@ -153,13 +136,6 @@ namespace DataApp.ViewModel
 
         private void SwichOnSQLiteDb()
         {
-            MainPage._resetSort.IsVisible = false;
-            MainPage._entryFind.Text = "";
-            MainPage._btnRealm.BorderWidth = 0;
-            MainPage._btnSQLite.BorderWidth = 2;
-            MainPage._btnRealm.TextColor = Color.Gray;
-            MainPage._btnSQLite.TextColor = Color.Black;
-
             ContactService = new ContactService<SQLiteContact>(new SQLiteImplementation());
             Contacts = ContactService.GetCollection();
             OnPropertyChanged("Contacts");
